@@ -42,6 +42,8 @@ namespace BedrockBank
         {
             AccountNumber = ++lastAccountNumber;
         }
+
+      
         #endregion
 
         #region Methods
