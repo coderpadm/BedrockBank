@@ -8,13 +8,16 @@ namespace BedrockBank
 {
     public static class Bank
     {
-       /// <summary>
-       /// Create a new account
-       /// </summary>
-       /// <param name="accountName">Name of your account</param>
-       /// <param name="ssn">Social Security Number</param>
-       /// <param name="typeOfAccount">The type of account</param>
-       /// <returns>A new account</returns>
+        #region Variables
+        public static List<Account> accounts = new List<Account>();
+        #endregion
+        /// <summary>
+        /// Create a new account
+        /// </summary>
+        /// <param name="accountName">Name of your account</param>
+        /// <param name="ssn">Social Security Number</param>
+        /// <param name="typeOfAccount">The type of account</param>
+        /// <returns>A new account</returns>
         public static Account CreateAccount(string accountName, int ssn,AccountType typeOfAccount)
         {
             //Initializer
@@ -24,7 +27,9 @@ namespace BedrockBank
                 SSN = ssn,
                 TypeofAccount = typeOfAccount
             };
+            accounts.Add(account);
             return account;
         }
+        
     }
 }
