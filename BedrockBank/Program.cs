@@ -43,7 +43,7 @@ namespace BedrockBank
                         break;
 
                     case "3":
-                        PrintAccounts();
+                        //PrintAccounts();
                         break;
 
                     case "0":
@@ -58,13 +58,13 @@ namespace BedrockBank
 
         }
 
-        static void PrintAccounts()
-        {
-            foreach (var account in Bank.accounts)
-            {
-                Console.WriteLine("Id: {0}, Name: {1}",
-                    account.AccountNumber, account.AccountName);
-            }
-        }
+        //static void PrintAccounts()
+        //{
+        //    foreach (var account in Bank.accounts)
+        //    {
+        //        Console.WriteLine("Id: {0}, Name: {1}",
+        //            account.AccountNumber, account.AccountName);
+        //    }
+        //}
     }
 }

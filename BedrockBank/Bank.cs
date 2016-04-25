@@ -9,7 +9,7 @@ namespace BedrockBank
     public static class Bank
     {
         #region Variables
-        public static List<Account> accounts = new List<Account>();
+        private static BankModel db = new BankModel();
         #endregion
         /// <summary>
         /// Create a new account
@@ -27,7 +27,8 @@ namespace BedrockBank
                 SSN = ssn,
                 TypeofAccount = typeOfAccount
             };
-            accounts.Add(account);
+            db.Accounts.Add(account);
+            db.SaveChanges();
             return account;
         }
         
