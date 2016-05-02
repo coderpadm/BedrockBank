@@ -32,8 +32,13 @@ namespace BedrockBank
                         Console.Write("What is the name of the account? ");
                         var accountName = Console.ReadLine();
 
+                        Console.Write("What is your email address? ");
+                        var emailAddress = Console.ReadLine();
+
+                        var customer = Bank.FindCustomer(emailAddress);
+
                         //Creating an instance of an Account
-                        var account1 = Bank.CreateAccount(accountName, 12342, AccountType.Checking);
+                        var account1 = Bank.CreateAccount(accountName, 12342, AccountType.Checking, customer);
                         Console.WriteLine("Account Name: {0}, Number: {1}, Type of account: {2}, Balance: {3:c}",
                         account1.AccountName, account1.AccountNumber, account1.TypeofAccount, account1.Balance
                         );

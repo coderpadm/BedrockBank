@@ -11,6 +11,14 @@ namespace BedrockBank
         #region Variables
         private static BankModel db = new BankModel();
         #endregion
+
+        public static Customer FindCustomer(string emailAddress)
+        {
+            return db.Customers.Where(
+                c => c.CustomerEmail == emailAddress)
+                .FirstOrDefault();
+
+        }
         /// <summary>
         /// Create a new account
         /// </summary>
@@ -18,14 +26,15 @@ namespace BedrockBank
         /// <param name="ssn">Social Security Number</param>
         /// <param name="typeOfAccount">The type of account</param>
         /// <returns>A new account</returns>
-        public static Account CreateAccount(string accountName, int ssn,AccountType typeOfAccount)
+        public static Account CreateAccount(string accountName, int ssn,AccountType typeOfAccount, Customer customer)
         {
             //Initializer
             var account = new Account
             {
                 AccountName = accountName,
                 SSN = ssn,
-                TypeofAccount = typeOfAccount
+                TypeofAccount = typeOfAccount,
+                Customer = customer
             };
             db.Accounts.Add(account);
             db.SaveChanges();

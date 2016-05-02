@@ -39,6 +39,7 @@ namespace BedrockBank
         public int SSN { get; set; }
         public double Balance { get; private set; }
         public AccountType TypeofAccount { get; set; }
+        public virtual Customer Customer { get; set; }
         #endregion
 
         #region Constructor
