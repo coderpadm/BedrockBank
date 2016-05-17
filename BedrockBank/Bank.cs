@@ -40,6 +40,26 @@ namespace BedrockBank
             db.SaveChanges();
             return account;
         }
+
+        /// <summary>
+        /// Creates a new customer
+        /// </summary>
+        /// <param name="name">Customer's name</param>
+        /// <param name="emailAddress">Customer's email addresss</param>
+        /// <returns>The newly created Customer object</returns>
+        public static Customer CreateCustomer(string name, string emailAddress)
+        {
+
+            var customer = new Customer
+            {
+                CustomerName=name,
+                CustomerEmail=emailAddress
+            };
+
+            db.Customers.Add(customer);
+            db.SaveChanges();
+            return customer;
+        }
         
     }
 }
