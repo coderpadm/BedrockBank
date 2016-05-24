@@ -14,6 +14,10 @@ namespace BedrockBank
 
         public static Customer FindCustomer(string emailAddress)
         {
+            if (string.IsNullOrEmpty(emailAddress))
+            {
+                throw new ArgumentNullException("Email address cannot be empty.");
+            }
             return db.Customers.Where(
                 c => c.CustomerEmail == emailAddress)
                 .FirstOrDefault();

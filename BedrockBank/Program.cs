@@ -30,25 +30,43 @@ namespace BedrockBank
                 {
 
                     case "1":
-                        customer = VerifyCustomer();
+              
                         try
                         {
+                            customer = VerifyCustomer();
 
                             Console.Write("What is the name of the account? ");
                             var accountName = Console.ReadLine();
 
+                            Console.WriteLine("What type of account do you need? ");
+                            Console.WriteLine("1. Checking");
+                            Console.WriteLine("2. Savings");
+
+                            var typeOfAccount = Console.ReadLine();
+                            AccountType accountType=AccountType.Savings;
+
+                            if (typeOfAccount == "1")
+                            {
+                                accountType = AccountType.Checking;
+                            }
+
                             //Creating an instance of an Account
-                            var account1 = Bank.CreateAccount(accountName, 12342, AccountType.Checking, customer);
+                            var account1 = Bank.CreateAccount(accountName, 12342, accountType, customer);
                             Console.WriteLine("Account Name: {0}, Number: {1}, Type of account: {2}, Balance: {3:c}",
                             account1.AccountName, account1.AccountNumber, account1.TypeofAccount, account1.Balance
                             );
                         }
+                        catch (ArgumentNullException ax)
+                        {
+                            Console.WriteLine("Failed - {0}", ax.ParamName);
+                        }
+
                         catch (DbEntityValidationException dx)
                         {
                             Console.WriteLine("Failed - {0}", dx.Message);
 
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
 
                             throw;
