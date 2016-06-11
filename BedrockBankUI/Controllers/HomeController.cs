@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BedrockBank;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,14 @@ namespace BedrockBankUI.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Accounts()
+        {
+            var accounts=Bank.GetAllAccounts(HttpContext.User.Identity.Name);
+            return View(accounts);
+        }
+
 
         public ActionResult About()
         {
