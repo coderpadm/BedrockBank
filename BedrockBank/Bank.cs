@@ -64,11 +64,21 @@ namespace BedrockBank
             db.SaveChanges();
             return customer;
         }
+        /*
+        public static Account CreateAccount(Account account, string emailAddress)
+        {
+
+        }*/
 
         public static Account[] GetAllAccounts(String emailAddress)
         {
            return db.Accounts.Where(a => a.Customer.CustomerEmail == emailAddress).ToArray();
 
+        }
+
+        public static Account FindAccountByAccountNumber(int number)
+        {
+            return db.Accounts.Where(b => b.AccountNumber == number).FirstOrDefault();
         }
         
     }

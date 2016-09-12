@@ -15,25 +15,38 @@ namespace BedrockBankUI.Controllers
         private BankModel db = new BankModel();
 
         // GET: Accounts
+        [Authorize]
         public ActionResult Index()
         {
-            return View(db.Accounts.ToList());
+           /* var customer = Bank.FindCustomer(HttpContext.User.Identity.Name);
+            Session.Add("",customer)*/
+
+            var accounts = Bank.GetAllAccounts(HttpContext.User.Identity.Name);
+
+            return View(accounts);
         }
 
         //GET call for deposit
         public ActionResult Deposit(int? id)
         {
+            Session.Add("AccountNumber", id);
             return View();
+            
         }
 
         [HttpPost]
         public ActionResult Deposit(FormCollection controls)
         {
             var amount = Convert.ToInt32(controls["amount"]);
-            var account = Bank.GetAllAccounts(HttpContext.User.Identity.Name)[0];
+            //    var account = Bank.FindAccountByAccountNumber(Convert.ToInt32(Session["AccountNumber"]));
 
+            int accountNumber = Convert.ToInt32(Session["AccountNumber"]);
+
+            var account= db.Accounts.Where(b => b.AccountNumber == accountNumber).FirstOrDefault();
+            var originalAccount = account;
             account.Deposit(amount);
-
+            db.Entry(originalAccount).CurrentValues.SetValues(account);
+            db.SaveChanges();
             return RedirectToAction("Index");
 
 
@@ -70,6 +83,9 @@ namespace BedrockBankUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                var customer = db.Customers.Where(c => c.CustomerEmail == HttpContext.User.Identity.Name).FirstOrDefault();
+        //        var customer = Bank.FindCustomer(HttpContext.User.Identity.Name);
+                account.Customer = customer;
                 db.Accounts.Add(account);
                 db.SaveChanges();
                 return RedirectToAction("Index");
